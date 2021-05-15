@@ -1,6 +1,7 @@
 package com.jmb;
 
 import com.jmb.mapper.StudentGradesFlatMapper;
+import org.apache.spark.SparkConf;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
@@ -29,9 +30,12 @@ public class BasicTransformationsPartTwo {
     }
 
     private void init() throws Exception {
+        SparkConf appConfig = new SparkConf().set("spark.testing.memory", "900000000");
+
         //Create the Spark Session
         SparkSession session = SparkSession.builder()
                 .appName("BasicTransformationsPartTwo")
+                .config(appConfig)
                 .master("local").getOrCreate();
 
         //Ingest data from CSV file into a DataFrame
